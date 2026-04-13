@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --accent: #6c63ff;
+    --accent-hover: #5a52e0;
+    --success: #4ade80;
+    --info: #38bdf8;
+    --danger: #f87171;
+    --bg: #0d0f1a;
+    --card: #1a1d2e;
+    --border: rgba(108, 99, 255, 0.2);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: #f1f0ff;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #1f2338 inset !important;
+    -webkit-text-fill-color: #f1f0ff !important;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-dark-700 border border-[rgba(108,99,255,0.2)] rounded-2xl p-6;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-dark-600 border border-[rgba(108,99,255,0.2)]
+           rounded-xl text-white placeholder-gray-500 text-sm
+           focus:outline-none focus:border-accent transition-colors;
+  }
+
+  .btn-primary {
+    @apply w-full flex items-center justify-center gap-2 py-3 px-6
+           bg-accent hover:bg-accent-hover active:scale-[0.98]
+           text-white font-medium rounded-xl transition-all duration-200;
+  }
+
+  .btn-ghost {
+    @apply flex items-center justify-center gap-2 py-2.5 px-5
+           bg-transparent border border-[rgba(108,99,255,0.25)]
+           hover:border-accent text-gray-400 hover:text-accent
+           rounded-xl transition-all duration-200 text-sm;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-purple {
+    @apply bg-[rgba(108,99,255,0.15)] text-[#a78bfa] border border-[rgba(108,99,255,0.3)];
+  }
+
+  .badge-green {
+    @apply bg-[rgba(74,222,128,0.12)] text-[#4ade80] border border-[rgba(74,222,128,0.3)];
+  }
+
+  .badge-red {
+    @apply bg-[rgba(248,113,113,0.12)] text-[#f87171] border border-[rgba(248,113,113,0.3)];
+  }
+
+  .scan-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #6c63ff, transparent);
+    animation: scanDown 2.2s ease-in-out infinite;
+    opacity: 0.8;
+  }
+
+  .corner {
+    position: absolute;
+    width: 22px; height: 22px;
+  }
+  .corner-tl { top: 10px; left: 10px; border-top: 2.5px solid #6c63ff; border-left: 2.5px solid #6c63ff; border-radius: 6px 0 0 0; }
+  .corner-tr { top: 10px; right: 10px; border-top: 2.5px solid #6c63ff; border-right: 2.5px solid #6c63ff; border-radius: 0 6px 0 0; }
+  .corner-bl { bottom: 10px; left: 10px; border-bottom: 2.5px solid #6c63ff; border-left: 2.5px solid #6c63ff; border-radius: 0 0 0 6px; }
+  .corner-br { bottom: 10px; right: 10px; border-bottom: 2.5px solid #6c63ff; border-right: 2.5px solid #6c63ff; border-radius: 0 0 6px 0; }
+}
+
+@keyframes scanDown {
+  0%   { top: 0; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes pulseRing {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+
+@keyframes dotFade {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
