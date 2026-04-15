@@ -88,12 +88,10 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900 flex items-center justify-start px-10">
+    <div className="min-h-screen bg-dark-900 flex items-center justify-center px-6">
         {/* Background grid */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.025]"
-        style={{ backgroundImage: "linear-gradient(#6c63ff 1px,transparent 1px),linear-gradient(90deg,#6c63ff 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
 
-      <div className="w-full max-w-xl animate-[slideUp_0.4s_ease-out]">
+      <div className="w-full max-w-2xl animate-[slideUp_0.4s_ease-out]">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
           <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-lg">
@@ -104,7 +102,7 @@ export default function Login() {
           <span className="text-xl font-semibold text-white">FaceAuth</span>
         </div>
 
-        <div className="card space-y-5">
+        <div className="card space-y-5 w-full">
           <div className="text-center">
             <h1 className="text-2xl font-semibold mb-1">Welcome back</h1>
             <p className="text-sm text-gray-400">Look at the camera to authenticate</p>
@@ -125,7 +123,7 @@ export default function Login() {
 
           {/* Scanner */}
           <div className="flex justify-center">
-            <FaceScanner onReady={onCameraReady} status={status} size={220} />
+            <FaceScanner onReady={onCameraReady} status={status} size={350} />
           </div>
 
           {/* Confidence */}

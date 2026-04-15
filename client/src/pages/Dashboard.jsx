@@ -39,31 +39,33 @@ export default function Dashboard() {
 
   const history = user?.loginHistory?.slice(0, 6) ?? [];
 
-  return (
-    <div className="min-h-screen bg-dark-900 p-4">
-      {/* Background grid */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.02]"
-        style={{ backgroundImage: "linear-gradient(#6c63ff 1px,transparent 1px),linear-gradient(90deg,#6c63ff 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
+ return (
+  <div className="min-h-screen bg-dark-900 p-6">
 
-      <div className="max-w-lg mx-auto space-y-4 animate-[slideUp_0.4s_ease-out]">
+    <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 animate-[slideUp_0.4s_ease-out]">
+
+      {/* LEFT SIDE (MAIN CONTENT) */}
+      <div className="lg:col-span-2 space-y-6">
 
         {/* Header */}
-        <div className="flex items-center justify-between pt-2 pb-1">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
             </div>
-            <span className="font-semibold text-white">Secure login</span>
+            <span className="text-4xl font-bold text-white">Secure login</span>
           </div>
-          <button onClick={handleLogout} className="btn-ghost py-1.5 px-3 text-xs">
-            Sign out
-          </button>
+
         </div>
 
-        {/* User hero card */}
-        <div className="card" style={{ background: "linear-gradient(135deg,rgba(108,99,255,0.18),rgba(56,189,248,0.08))", borderColor: "rgba(108,99,255,0.3)" }}>
+        {/* User card */}
+        <div className="card" style={{
+          background: "linear-gradient(135deg,rgba(108,99,255,0.18),rgba(56,189,248,0.08))",
+          borderColor: "rgba(108,99,255,0.3)"
+        }}>
           <div className="flex items-center gap-4">
             <div className="relative">
               <div className="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-xl font-bold text-white border-2 border-white/20">
@@ -83,31 +85,11 @@ export default function Dashboard() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="card p-4 text-center" style={{ padding: "1rem" }}>
+            <div key={s.label} className="card p-4 text-center">
               <div className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</div>
               <div className="text-xs text-gray-500 mt-1">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Security tips */}
-        <div className="card space-y-3">
-          <div className="flex items-center justify-between">
-            <h3 className="font-medium">Security tips</h3>
-            <span className="badge badge-purple">All</span>
-          </div>
-          {tips.map((t, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-sm"
-                style={{ background: t.bg, color: t.color }}>
-                {t.icon}
-              </div>
-              <div>
-                <p className="text-sm font-medium">{t.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5">{t.desc}</p>
-              </div>
             </div>
           ))}
         </div>
@@ -120,7 +102,7 @@ export default function Dashboard() {
           ) : (
             history.map((item, i) => (
               <div key={i} className="flex items-center gap-3 py-2.5 border-b border-white/5 last:border-0">
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
                   item.success ? "bg-green-400/10" : "bg-red-400/10"
                 }`}>
                   {item.success ? (
@@ -129,14 +111,15 @@ export default function Dashboard() {
                     </svg>
                   ) : (
                     <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="flex-1">
                   <p className="text-sm font-medium">{item.success ? "Login successful" : "Match failed"}</p>
-                  <p className="text-xs text-gray-500 truncate">
-                    {new Date(item.timestamp).toLocaleString()} · {item.userAgent?.split(" ")[0] || "Unknown"}
+                  <p className="text-xs text-gray-500">
+                    {new Date(item.timestamp).toLocaleString()}
                   </p>
                 </div>
                 <span className={`text-xs font-semibold ${item.success ? "text-green-400" : "text-red-400"}`}>
@@ -147,30 +130,58 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Face registered info */}
-        {user?.faceRegisteredAt && (
-          <div className="flex items-center gap-2.5 bg-dark-700 border border-[rgba(108,99,255,0.15)] rounded-xl px-4 py-3">
-            <svg className="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <p className="text-xs text-gray-400">
-              Face registered on {new Date(user.faceRegisteredAt).toLocaleDateString()}
-            </p>
-          </div>
-        )}
+      </div>
 
+      {/* RIGHT SIDE (SIDEBAR) */}
+      <div className="space-y-6">
+<div className="flex justify-between items-center">
+  <h1 className="text-white"></h1>
+
+  <button
+    onClick={handleLogout}
+    className="btn-ghost py-1.5 px-3 text-sm"
+  >
+    Sign out
+  </button>
+</div>
+        {/* Security tips */}
+        <div className="card space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium">Security tips</h3>
+            <span className="badge badge-purple">All</span>
+          </div>
+          {tips.map((t, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm"
+                style={{ background: t.bg, color: t.color }}>
+                {t.icon}
+              </div>
+              <div>
+                <p className="text-sm font-medium">{t.title}</p>
+                <p className="text-xs text-gray-500">{t.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
         {/* Danger zone */}
         <div className="border border-red-500/20 rounded-2xl p-5 space-y-3">
           <p className="text-sm font-medium text-red-400">Danger zone</p>
-          <p className="text-xs text-gray-500">Deletes all stored face embeddings. You will need to re-register.</p>
-          <button onClick={handleResetFace}
-            className="w-full py-2.5 rounded-xl border border-red-500/30 text-red-400 text-sm hover:bg-red-500/10 transition-colors">
+          <p className="text-xs text-gray-500">
+            Deletes all stored face embeddings. You will need to re-register.
+          </p>
+          <button
+            onClick={handleResetFace}
+            className="w-full py-2.5 rounded-xl border border-red-500/30 text-red-400 text-sm hover:bg-red-500/10 transition-colors"
+          >
             Delete face embeddings
           </button>
         </div>
 
-        <p className="text-center text-xs text-gray-600 pb-6">FaceAuth — Powered by DeepFace + MERN</p>
       </div>
+    </div>
+    <br></br>
+        <p className="text-center text-xs text-gray-600 pb-6">FaceAuth — Made By Gurman and Nitesh</p>
+      
     </div>
   );
 }

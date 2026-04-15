@@ -66,31 +66,49 @@ export default function Register() {
     }
   }
 
-  return (
-    <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4">
-      {/* Background grid */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.025]"
-        style={{ backgroundImage: "linear-gradient(#6c63ff 1px,transparent 1px),linear-gradient(90deg,#6c63ff 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
+ return (
+  <div className="min-h-screen bg-dark-900 flex items-center justify-center p-6">
 
-      <div className="w-full max-w-sm animate-[slideUp_0.4s_ease-out]">
+    <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center animate-[slideUp_0.4s_ease-out]">
+
+      {/* LEFT SIDE (LOGO + INFO) */}
+      <div className="hidden lg:flex flex-col justify-center max-w-sm">
+
         {/* Logo */}
-        <div className="flex items-center justify-center gap-3 mb-8">
+        <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-lg">
             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
           </div>
           <span className="text-xl font-semibold text-white">FaceAuth</span>
         </div>
 
-        <div className="card space-y-5">
+        <h1 className="text-4xl font-bold text-white mb-4">
+          Create your account
+        </h1>
+
+        <p className="text-gray-400">
+          Register using advanced face authentication. Capture multiple angles for better accuracy and security.
+        </p>
+
+      </div>
+
+      {/* RIGHT SIDE (FORM + SCANNER) */}
+      <div className="w-full max-w-md ml-auto">
+
+        <div className="card space-y-5 w-full">
+
           {/* Step indicator */}
           <div className="flex items-center gap-3">
             {[1, 2].map((s) => (
               <div key={s} className="flex items-center gap-2 flex-1">
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ${
                   step >= s ? "bg-accent text-white" : "bg-dark-600 text-gray-500"
-                }`}>{s}</div>
+                }`}>
+                  {s}
+                </div>
                 <span className={`text-xs ${step >= s ? "text-gray-300" : "text-gray-600"}`}>
                   {s === 1 ? "Your details" : "Face capture"}
                 </span>
@@ -99,9 +117,10 @@ export default function Register() {
             ))}
           </div>
 
-          {/* STEP 1 — Details form */}
+          {/* STEP 1 */}
           {step === 1 && (
-            <div className="space-y-4 animate-[fadeIn_0.3s_ease-out]">
+            <div className="space-y-4">
+
               <div className="text-center">
                 <h1 className="text-2xl font-semibold mb-1">Create account</h1>
                 <p className="text-sm text-gray-400">Set up passwordless face login</p>
@@ -109,138 +128,69 @@ export default function Register() {
 
               <div>
                 <label className="block text-xs text-gray-400 mb-1.5">Full name</label>
-                <input className="input-field" type="text" placeholder="Alex Johnson"
+                <input className="input-field" type="text"
                   value={name} onChange={(e) => setName(e.target.value)} />
               </div>
 
               <div>
-                <label className="block text-xs text-gray-400 mb-1.5">Email address</label>
-                <input className="input-field" type="email" placeholder="alex@example.com"
-                  value={email} onChange={(e) => setEmail(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && nextFormStep()} />
+                <label className="block text-xs text-gray-400 mb-1.5">Email</label>
+                <input className="input-field" type="email"
+                  value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
 
               <button className="btn-primary" onClick={nextFormStep}>
-                Continue to face setup
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
+                Continue
               </button>
 
               <p className="text-center text-sm text-gray-500">
                 Already registered?{" "}
-                <Link to="/login" className="text-accent hover:underline font-medium">Log in</Link>
+                <Link to="/login" className="text-accent">Log in</Link>
               </p>
+
             </div>
           )}
 
-          {/* STEP 2 — Face capture */}
+          {/* STEP 2 */}
           {step === 2 && (
-            <div className="space-y-4 animate-[fadeIn_0.3s_ease-out]">
-              <div className="text-center">
-                <h1 className="text-xl font-semibold mb-1">Capture your face</h1>
-                <p className="text-sm text-gray-400">
-                  {captures.length < TOTAL_PHOTOS
-                    ? `Photo ${captures.length + 1} of ${TOTAL_PHOTOS} — ${ANGLE_GUIDES[captures.length]}`
-                    : "All photos captured!"}
-                </p>
-              </div>
+            <div className="space-y-4">
 
-              {/* Scanner */}
-              <div className="flex justify-center">
-                <FaceScanner
-                  onReady={onCameraReady}
-                  status={status}
-                  size={210}
-                  cornerColor={captures.length === TOTAL_PHOTOS ? "#4ade80" : "#6c63ff"}
-                />
-              </div>
+              <FaceScanner
+                onReady={onCameraReady}
+                status={status}
+                size={240}
+              />
 
-              {/* Progress dots */}
-              <div className="flex gap-2 justify-center">
-                {Array.from({ length: TOTAL_PHOTOS }).map((_, i) => (
-                  <div key={i} className={`h-2 rounded-full transition-all duration-300 ${
-                    i < captures.length ? "bg-success w-6" :
-                    i === captures.length ? "bg-accent w-4" :
-                    "bg-dark-600 w-2"
-                  }`} />
-                ))}
-              </div>
+              <button className="btn-primary" onClick={capturePhoto}>
+                Capture ({captures.length}/{TOTAL_PHOTOS})
+              </button>
 
-              {/* Thumbnails */}
-              <div className="grid grid-cols-5 gap-2">
-                {Array.from({ length: TOTAL_PHOTOS }).map((_, i) => (
-                  <div key={i}
-                    className={`aspect-square rounded-xl overflow-hidden border ${
-                      i < captures.length
-                        ? "border-success/40 bg-success/10"
-                        : "border-[rgba(108,99,255,0.2)] bg-dark-600"
-                    } flex items-center justify-center`}
-                  >
-                    {i < captures.length ? (
-                      <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6"/>
-                      </svg>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Angle guide pills */}
-              <div className="flex gap-1.5 flex-wrap">
-                {ANGLE_GUIDES.map((g, i) => (
-                  <span key={i} className={`text-xs px-2.5 py-1 rounded-full transition-all ${
-                    i < captures.length  ? "bg-success/10 text-green-400 border border-success/30" :
-                    i === captures.length ? "bg-accent/15 text-[#a78bfa] border border-accent/30" :
-                    "bg-dark-600 text-gray-600 border border-transparent"
-                  }`}>{g}</span>
-                ))}
-              </div>
-
-              {/* Action buttons */}
-              {captures.length < TOTAL_PHOTOS ? (
-                <button className="btn-primary" style={{ background: "#4ade80", color: "#0d0f1a" }} onClick={capturePhoto}>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="3"/>
-                    <path d="M20 7h-4l-2-3H10L8 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
-                  </svg>
-                  Capture Photo ({captures.length}/{TOTAL_PHOTOS})
-                </button>
-              ) : (
-                <button
-                  className="btn-primary disabled:opacity-50"
-                  onClick={handleRegister}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Registering...
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                      </svg>
-                      Complete Registration
-                    </>
-                  )}
+              {captures.length >= 3 && (
+                <button className="btn-primary" onClick={handleRegister}>
+                  Register
                 </button>
               )}
 
-              <button className="btn-ghost w-full" onClick={() => { setStep(1); setCaptures([]); setStatus("idle"); }}>
+              <button
+                className="btn-ghost w-full"
+                onClick={() => {
+                  setStep(1);
+                  setCaptures([]);
+                  setStatus("idle");
+                }}
+              >
                 ← Back
               </button>
+
             </div>
           )}
+
         </div>
       </div>
-    </div>
-  );
-}
 
-function delay(ms) { return new Promise((r) => setTimeout(r, ms)); }
+    </div>
+  </div>
+);
+
+function delay(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}}
