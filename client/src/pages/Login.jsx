@@ -88,7 +88,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900 flex items-center justify-center px-6">
+    <div className="min-h-screen flex items-center justify-center px-6">
         {/* Background grid */}
 
       <div className="w-full max-w-2xl animate-[slideUp_0.4s_ease-out]">

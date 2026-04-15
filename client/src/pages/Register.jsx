@@ -67,7 +67,7 @@ export default function Register() {
   }
 
  return (
-  <div className="min-h-screen bg-dark-900 flex items-center justify-center p-6">
+  <div className="min-h-screen flex items-center justify-center p-6">
 
     <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center animate-[slideUp_0.4s_ease-out]">
 

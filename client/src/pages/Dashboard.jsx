@@ -40,13 +40,14 @@ export default function Dashboard() {
   const history = user?.loginHistory?.slice(0, 6) ?? [];
 
  return (
-  <div className="min-h-screen bg-dark-900 p-6">
+  <div className="min-h-screen flex flex-col">
 
-    <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 animate-[slideUp_0.4s_ease-out]">
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 animate-[slideUp_0.4s_ease-out]">
 
       {/* LEFT SIDE (MAIN CONTENT) */}
       <div className="lg:col-span-2 space-y-6">
-
+    <br></br>
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -60,6 +61,8 @@ export default function Dashboard() {
           </div>
 
         </div>
+    <br></br>
+    <br></br>
 
         {/* User card */}
         <div className="card" style={{
@@ -136,6 +139,10 @@ export default function Dashboard() {
       <div className="space-y-6">
 <div className="flex justify-between items-center">
   <h1 className="text-white"></h1>
+    <br></br>
+        <br></br>
+    <br></br>
+    <br></br>
 
   <button
     onClick={handleLogout}
@@ -144,6 +151,7 @@ export default function Dashboard() {
     Sign out
   </button>
 </div>
+    <br></br>
         {/* Security tips */}
         <div className="card space-y-3">
           <div className="flex items-center justify-between">
@@ -179,9 +187,17 @@ export default function Dashboard() {
 
       </div>
     </div>
+    <br></br>    <br></br>
     <br></br>
-        <p className="text-center text-xs text-gray-600 pb-6">FaceAuth — Made By Gurman and Nitesh</p>
-      
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+
+     <p className="text-center text-xs text-gray-400 py-4">
+  FaceAuth — Made By Gurman and Nitesh
+</p>
     </div>
+    
   );
 }
