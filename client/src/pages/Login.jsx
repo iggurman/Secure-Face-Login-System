@@ -88,12 +88,12 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-900 flex items-center justify-center p-4">
-      {/* Background grid */}
+    <div className="min-h-screen bg-dark-900 flex items-center justify-start px-10">
+        {/* Background grid */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.025]"
         style={{ backgroundImage: "linear-gradient(#6c63ff 1px,transparent 1px),linear-gradient(90deg,#6c63ff 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
 
-      <div className="w-full max-w-sm animate-[slideUp_0.4s_ease-out]">
+      <div className="w-full max-w-xl animate-[slideUp_0.4s_ease-out]">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
           <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-lg">
